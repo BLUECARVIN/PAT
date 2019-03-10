@@ -6,10 +6,10 @@ using namespace std;
 
 int main()
 {
-    char s1[10010];
-    char s2[10010];
-    cin.getline(s1, 10000);
-    cin.getline(s2, 10000);
+    char s1[100010];
+    char s2[100010];
+    cin.getline(s1, 100000);
+    cin.getline(s2, 100000);
     bool HashTable[128] = {false};
     int len1 = strlen(s1);
     int len2 = strlen(s2);
@@ -19,7 +19,7 @@ int main()
     }
     for(int i = 0; i < len1; i++)
     {
-        if(HashTable[s1[i]] == false)
+        if(!HashTable[s1[i]])
         {
             printf("%c", s1[i]);
         }
