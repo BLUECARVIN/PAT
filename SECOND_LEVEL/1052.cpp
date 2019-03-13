@@ -1,72 +1,64 @@
 #include <cstdio>
 #include <iostream>
+#include <iostream>
+#include <cstdio>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
 
-struct ListNode
-{
-    int address;
-    int val;
-    int next;
-    int flag;
-}List[100010], p;
+const int maxn = 10010;
+int sum = 0;
 
-bool cmp(ListNode a, ListNode b)
+struct Node
 {
-    if(a.flag == 0 || b.flag == 0)
-    {
-        return a.flag > b.flag;
-    }
-    else
-    {
-        return a.val < b.val;
-    }
-};
+    int add;
+    int data;
+    int next;
+}List[maxn];
+
+
+bool cmp(Node a, Node b)
+{
+    if(a.data != b.data)
+        return a.data < b.data;
+    else 
+        return a.add < b.add;
+}
 
 int main()
 {
-    for(int i = 0; i < 100010; i++)
-    {
-        List[i].flag = 0;
-    }
-    int n, begin, address;
-    scanf("%d %d", &n, &begin);
+    int n, first;
+    scanf("%d %d", &n, &first);
     for(int i = 0; i < n; i++)
     {
-        scanf("%d", &address);
-        scanf("%d %d", &List[address].val, &List[address].next);
-        List[address].address = address;
+        int k;
+        cout << i<< endl;
+        scanf("%d", &k);
+        scanf("%d %d", &List[k].data, &List[k].next);
+        List[k].add = k;
     }
-    int count = 0, p = begin;
+    int p = first;
+    vector<Node> Record;
     while(p != -1)
     {
-        List[p].flag = 1;
-        count ++;
+        Record.push_back(List[p]);
         p = List[p].next;
+        sum ++;
     }
-    if(count == 0)
+    sort(Record.begin(), Record.end(), cmp);
+    printf("%d %d\n", sum, Record[0].add);
+    for(int i = 0; i < sum; i++)
     {
-        printf("0 -1");
-    }
-    else
-    {
-        sort(&List[0], &List[100010], cmp);
-        printf("%d %05d\n", count, List[0].address);
-        for(int i = 0; i < count; i++)
+        if (i != sum - 1)
         {
-            if(i != count - 1)
-            {
-                printf("%05d %d %05d\n", List[i].address, List[i].val, List[i].next);
-            }
-            else
-            {
-                printf("%05d %d -1\n", List[i].address, List[i].val);
-            }
+            printf("%05d %d %05d\n", Record[i].add, Record[i].data, Record[i+1].add);
+        }
+        else
+        {
+            printf("%05d %d -1\n", Record[i].add, Record[i].data);
         }
     }
     system("pause");
     return 0;
 }
-
-
