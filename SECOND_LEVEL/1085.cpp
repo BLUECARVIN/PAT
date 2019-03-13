@@ -36,7 +36,7 @@ int main()
     for(int i = 0; i < n; i++) //在a[i+1] - a[n-1]中查找第一个超过a[i]*p的数，返回位置给j
     {
         int j = upper_bound(a + i + 1, a+n, (long long)a[i] * p) - a;
-        ans = max(ans, j - 1);
+        ans = max(ans, j );
     }
     printf("%d\n", ans);
     system("pause");
