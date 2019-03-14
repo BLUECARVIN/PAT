@@ -11,9 +11,15 @@ int main()
 {
     int n;
     scanf("%d", &n);
+    bool flag = false;
     for(int i = 0; i < n; i++)
     {
         scanf("%d", &num[i]);
+        if(num[i] >= 0) flag = true;
+    }
+    if(flag == false) //若输入元素都为负数，则输出0以及首尾元素
+    {
+        printf("0 %d %d\n", num[0], num[n-1]);
     }
     dp[0] = num[0];
     re[0] = 0;
@@ -29,17 +35,15 @@ int main()
             re[i] = i;
         }
     }
-    int sum = - 1e+9;
     int j = 0;
     for(int i = 0; i < n; i++)
     {
-        if(sum < dp[i])
+        if(dp[i] > dp[j])
         {
-            sum = dp[i];
             j = i;
         }
     }
-    printf("%d %d %d", sum, num[re[j]], num[j]);
+    printf("%d %d %d", dp[j], num[re[j]], num[j]);
     system("pause");
     return 0;
 }
